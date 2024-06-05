@@ -4,10 +4,8 @@ use crate::error;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub(crate) enum Base {
-    #[allow(unused)]
     #[serde(rename = "base58")]
     Base58,
-    #[allow(unused)]
     #[serde(rename = "base64")]
     Base64,
 }
