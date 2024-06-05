@@ -8,5 +8,5 @@ mod tests;
 pub use core::*;
 pub use basex::*;
 
-#[cfg(all(feature = "base64", feature = "bs58"))]
-compile_error!("At most one of feature `base64` and feature `bs58` can be enabled");
+#[cfg(all(feature = "json", not(any(feature = "bs58", feature = "base64"))))]
+compile_error!("feature `json` required at least one of bs58 and base64");
