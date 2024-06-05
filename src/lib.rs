@@ -1,4 +1,5 @@
 #![allow(unreachable_code)]
+#![allow(unused_variables)]
 
 mod error;
 pub use error::*;

@@ -100,15 +100,41 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(all(feature = "bs58", feature = "base64"))]
+    #[cfg(all(feature = "serde_json", feature = "base64"))]
     #[test]
-    fn to_json_then_from_base64() -> anyhow::Result<()> {
+    fn to_json_then_from_json_with_base64() -> anyhow::Result<()> {
         const BATCH_SIZE: usize = 128;
 
         for _ in 0..BATCH_SIZE {
             let origin = A::rand();
 
             let bytes = crate::to_json_base64(&origin)?.to_vec()?;
+            let parsed: A = crate::from_json_slice(&bytes)?.to_value()?;
+
+            assert_eq!(origin, parsed);
+        }
+
+        for _ in 0..BATCH_SIZE {
+            let origin = A::rand();
+
+            let bytes = crate::to_json(&origin)?.to_vec()?;
+            let parsed: A = crate::from_json_slice(&bytes)?.to_value()?;
+
+            assert_eq!(origin, parsed);
+        }
+
+        Ok(())
+    }
+
+    #[cfg(all(feature = "serde_json", feature = "bs58"))]
+    #[test]
+    fn to_json_then_from_json_with_base58() -> anyhow::Result<()> {
+        const BATCH_SIZE: usize = 128;
+
+        for _ in 0..BATCH_SIZE {
+            let origin = A::rand();
+
+            let bytes = crate::to_json_base58(&origin)?.to_vec()?;
             let parsed: A = crate::from_json_slice(&bytes)?.to_value()?;
 
             assert_eq!(origin, parsed);
