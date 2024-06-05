@@ -52,8 +52,11 @@ pub use error::*;
 
 mod core;
 mod basex;
-mod tests;
 mod json;
+#[cfg(test)]
+mod tests;
+#[cfg(test)]
+mod benchmarks;
 
 pub use core::*;
 pub use basex::*;

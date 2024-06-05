@@ -14,6 +14,24 @@ Therefore, you can consider using this library. This library will
 help you encapsulate Json type data (that is, `impl Serialize`)
 with an extra layer (the result is still Json, but the data is more compact).
 
+## Encoding Example
+This library will encode:
+
+```json
+{
+  "username": "serde_tran:username",
+  "password": "serde_tran:password:123456"
+}
+```
+
+to something like:
+```json
+{
+  "f": "base64",
+  "v": "NgAAAAAAAAATAAAAAAAAAHNlcmRlX3RyYW46dXNlcm5hbWUTAAAAAAAAAHNlcmRlX3RyYW46cGFzc3dvcmRnmz7nMG94SA"
+}
+```
+
 ## Usage
 
 First, we define a struct in our example, which `impl Serialize`:
@@ -64,4 +82,7 @@ use `wasm` in your web client.
 > Work in progress
 
 ## Benchmark
-> todo()
+
+### Time
+
+### Space
