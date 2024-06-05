@@ -2,7 +2,7 @@
 #![allow(unused_variables)]
 
 //!
-//! # `serde_tran`: helper to encode/decode and zip/unzip your JSON data
+//! # `serde_tran`: helper to encode/decode your JSON data
 //!
 //! ## Background
 //! When we use the HTTP protocol (or other transmission protocols),
