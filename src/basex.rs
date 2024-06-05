@@ -119,6 +119,7 @@ pub fn to_base58<T>(data: &T) -> error::Result<String>
 }
 
 #[cfg(feature = "bs58")]
+/// convert data from base58 string to T
 pub fn from_base58<T>(s: &str) -> error::Result<T>
     where T: for<'de> Deserialize<'de>
 {
