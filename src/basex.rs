@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::error;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
-pub(crate) enum Base {
+pub enum Base {
     #[serde(rename = "base58")]
     Base58,
     #[serde(rename = "base64")]

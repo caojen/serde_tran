@@ -16,6 +16,9 @@ pub enum ErrorKind {
     #[cfg(feature = "base64")]
     /// base64 decode error
     Base64DecodeError(base64::DecodeError),
+    #[cfg(feature = "serde_json")]
+    /// serde_json decode and encode error
+    SerdeJsonError(serde_json::Error),
 }
 
 fn error_kind_feature_display_arm(kind: &ErrorKind, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -54,6 +57,7 @@ impl From<bincode::Error> for ErrorKind {
 
 #[cfg(feature = "bs58")]
 impl From<bs58::decode::Error> for ErrorKind {
+    #[inline]
     fn from(err: bs58::decode::Error) -> Self {
         Self::Base58DecodeError(err)
     }
@@ -61,7 +65,16 @@ impl From<bs58::decode::Error> for ErrorKind {
 
 #[cfg(feature = "base64")]
 impl From<base64::DecodeError> for ErrorKind {
+    #[inline]
     fn from(err: base64::DecodeError) -> Self {
         Self::Base64DecodeError(err)
+    }
+}
+
+#[cfg(feature = "serde_json")]
+impl From<serde_json::Error> for ErrorKind {
+    #[inline]
+    fn from(err: serde_json::Error) -> Self {
+        Self::SerdeJsonError(err)
     }
 }
