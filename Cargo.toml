@@ -5,6 +5,7 @@ edition = "2021"
 authors = ["caojen <netid.caojen@gmail.com>"]
 description = "helper to serde your data into encoded bytes"
 license = "MIT"
+repository = "https://github.com/caojen/serde_tran"
 
 [features]
 # by default, we enable json and base64
