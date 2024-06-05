@@ -32,6 +32,11 @@ fn error_kind_feature_display_arm(kind: &ErrorKind, f: &mut Formatter<'_>) -> st
         return Display::fmt(err, f)
     }
 
+    #[cfg(feature = "serde_json")]
+    if let ErrorKind::SerdeJsonError(err) = kind {
+        return Display::fmt(err, f)
+    }
+
     unreachable!()
 }
 
