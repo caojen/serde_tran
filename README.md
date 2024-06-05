@@ -52,6 +52,11 @@ This picture shows all the public function from `serde_tran`:
 
 ![](./structure.jpeg)
  
+## Features
+
++ `serde_json (default)`: enable `Json`. If you use `serde_json`, `base58` or `base64` must be enabled (at least one).
++ `base64 (default)`: enable base64 encoding, using crate (base64)[https://docs.rs/base64/latest/base64].
++ `bs58`: enable base58 encoding, using crate (bs58)[https://docs.rs/bs58].
 
 ## Benchmark
 > todo()
