@@ -1,0 +1,24 @@
+[package]
+name = "serde_tran"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+# by default, we enable json and base64
+default = ["json", "base64"]
+# note: when json is enabled, please enable excactly one of [`base64`, `bs58`]
+json = ["serde_json"]
+# when no-hash-validate is enabled, the hash will not be applied to serialized data
+no-hash-validate = []
+
+[dependencies]
+bincode = { version = "1" }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", optional = true }
+base64 = { version = "0.22", optional = true }
+bs58 = { version = "0.5", optional = true }
+derive_more = { version = "0.99" }
+
+[dev-dependencies]
+rand = { version = "0.8.5" }
+anyhow = { version = "1" }
