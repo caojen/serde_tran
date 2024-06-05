@@ -2,7 +2,6 @@
 mod tests {
     use rand::Rng;
     use serde::{Deserialize, Serialize};
-    use crate::{from_base64, from_slice, to_base64, to_vec};
 
     #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
     struct A {
@@ -58,8 +57,8 @@ mod tests {
         for _ in 0..BATCH_SIZE {
             let origin = A::rand();
 
-            let bytes = to_vec(&origin)?;
-            let parsed: A = from_slice(&bytes)?;
+            let bytes = crate::to_vec(&origin)?;
+            let parsed: A = crate::from_slice(&bytes)?;
 
             assert_eq!(origin, parsed);
         }
@@ -75,8 +74,42 @@ mod tests {
         for _ in 0..BATCH_SIZE {
             let origin = A::rand();
 
-            let bytes = to_base64(&origin)?;
-            let parsed: A = from_base64(&bytes)?;
+            let bytes = crate::to_base64(&origin)?;
+            let parsed: A = crate::from_base64(&bytes)?;
+
+            assert_eq!(origin, parsed);
+        }
+
+        Ok(())
+    }
+
+    #[cfg(feature = "bs58")]
+    #[test]
+    fn to_base58_then_from_base58() -> anyhow::Result<()> {
+        const BATCH_SIZE: usize = 128;
+
+        for _ in 0..BATCH_SIZE {
+            let origin = A::rand();
+
+            let bytes = crate::to_base58(&origin)?;
+            let parsed: A = crate::from_base58(&bytes)?;
+
+            assert_eq!(origin, parsed);
+        }
+
+        Ok(())
+    }
+
+    #[cfg(all(feature = "bs58", feature = "base64"))]
+    #[test]
+    fn to_json_then_from_base64() -> anyhow::Result<()> {
+        const BATCH_SIZE: usize = 128;
+
+        for _ in 0..BATCH_SIZE {
+            let origin = A::rand();
+
+            let bytes = crate::to_json_base64(&origin)?.to_vec()?;
+            let parsed: A = crate::from_json_slice(&bytes)?.to_value()?;
 
             assert_eq!(origin, parsed);
         }

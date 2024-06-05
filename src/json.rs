@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use crate::{Base, error, from_base58, from_base64, to_base58, to_base64};
+use crate::{Base, error};
 
 pub type Format = Base;
 
@@ -56,15 +56,15 @@ impl Json {
         match self.format() {
             Base::Base58 => {
                 #[cfg(feature = "bs58")]
-                { from_base58(self.data()) }
+                { crate::from_base58(self.data()) }
                 #[cfg(not(feature = "bs58"))]
-                { Err(error::ErrorKind::CustomError("unknown data format")) }
+                { Err(error::ErrorKind::CustomError("unknown data format".to_string())) }
             },
             Base::Base64 => {
                 #[cfg(feature = "base64")]
-                { from_base64(self.data()) }
+                { crate::from_base64(self.data()) }
                 #[cfg(not(feature = "base64"))]
-                { Err(error::ErrorKind::CustomError("unknown data format")) }
+                { Err(error::ErrorKind::CustomError("unknown data format".to_string())) }
             },
         }
     }
@@ -96,7 +96,7 @@ pub fn to_json<T>(data: &T) -> error::Result<Json>
 pub fn to_json_base64<T>(data: &T) -> error::Result<Json>
     where T: Serialize
 {
-    let data = to_base64(data)?;
+    let data = crate::to_base64(data)?;
     Ok(Json::new(Base::Base64, data))
 }
 
@@ -105,7 +105,7 @@ pub fn to_json_base64<T>(data: &T) -> error::Result<Json>
 pub fn to_json_base58<T>(data: &T) -> error::Result<Json>
     where T: Serialize
 {
-    let data = to_base58(data)?;
+    let data = crate::to_base58(data)?;
     Ok(Json::new(Base::Base58, data))
 }
 

@@ -5,7 +5,7 @@ edition = "2021"
 
 [features]
 # by default, we enable json and base64
-default = ["serde_json", "base64", "bs58"]
+default = ["serde_json", "base64"]
 # note: when json is enabled, please enable excactly one of [`base64`, `bs58`]
 # when no-hash-validate is enabled, the hash will not be applied to serialized data
 no-hash-validate = []
