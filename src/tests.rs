@@ -2,7 +2,7 @@
 mod tests {
     use rand::Rng;
     use serde::{Deserialize, Serialize};
-    use crate::{from_slice, to_vec};
+    use crate::{from_base64, from_slice, to_base64, to_vec};
 
     #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
     struct A {
@@ -60,6 +60,23 @@ mod tests {
 
             let bytes = to_vec(&origin)?;
             let parsed: A = from_slice(&bytes)?;
+
+            assert_eq!(origin, parsed);
+        }
+
+        Ok(())
+    }
+
+    #[cfg(feature = "base64")]
+    #[test]
+    fn to_base64_then_from_base64() -> anyhow::Result<()> {
+        const BATCH_SIZE: usize = 128;
+
+        for _ in 0..BATCH_SIZE {
+            let origin = A::rand();
+
+            let bytes = to_base64(&origin)?;
+            let parsed: A = from_base64(&bytes)?;
 
             assert_eq!(origin, parsed);
         }

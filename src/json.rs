@@ -1,8 +1,7 @@
-use std::fmt::Display;
 use serde::{Deserialize, Serialize};
-use crate::{Base, error, from_base58, from_base64, to_base58, to_base64, to_vec};
+use crate::{Base, error, from_base58, from_base64, to_base58, to_base64};
 
-pub type Format = crate::basex::Base;
+pub type Format = Base;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 /// [Json] stores the data and encoding.

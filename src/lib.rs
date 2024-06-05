@@ -1,3 +1,5 @@
+#![allow(unreachable_code)]
+
 mod error;
 pub use error::*;
 
