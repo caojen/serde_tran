@@ -1,7 +1,10 @@
 [package]
 name = "serde_tran"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
+authors = ["caojen <netid.caojen@gmail.com>"]
+description = "helper to serde your data into encoded bytes"
+license = "MIT"
 
 [features]
 # by default, we enable json and base64
