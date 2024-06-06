@@ -1052,6 +1052,7 @@ dependencies = [
  "bincode",
  "bs58",
  "derive_more",
+ "flate2",
  "rand",
  "serde",
  "serde_json",

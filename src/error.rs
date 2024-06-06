@@ -4,6 +4,7 @@ pub type Result<T> = core::result::Result<T, ErrorKind>;
 
 #[derive(Debug)]
 pub enum ErrorKind {
+    IOError(std::io::Error),
     /// See [bincode::Error] or [bincode::ErrorKind]
     BincodeError(bincode::Error),
     /// Hash error when deserializing. (expected, got)
@@ -43,6 +44,7 @@ fn error_kind_feature_display_arm(kind: &ErrorKind, f: &mut Formatter<'_>) -> st
 impl Display for ErrorKind {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
+            Self::IOError(err) => write!(f, "io::error: {}", err),
             Self::BincodeError(err) => write!(f, "bincode::error: {}", err),
             Self::HashError(expected, got) => write!(f, "hash error: expected {} but got {}", expected, got),
             Self::CustomError(s) => Display::fmt(s, f),
@@ -57,6 +59,13 @@ impl std::error::Error for ErrorKind {}
 impl From<bincode::Error> for ErrorKind {
     fn from(err: bincode::Error) -> Self {
         Self::BincodeError(err)
+    }
+}
+
+impl From<std::io::Error> for ErrorKind {
+    #[inline]
+    fn from(err: std::io::Error) -> Self {
+        Self::IOError(err)
     }
 }
 

@@ -1,4 +1,8 @@
 use std::hash::Hasher;
+use std::io::{Read, Write};
+use flate2::Compression;
+use flate2::read::GzDecoder;
+use flate2::write::GzEncoder;
 use serde::{Deserialize, Serialize};
 use crate::error;
 
@@ -60,15 +64,25 @@ pub fn to_vec<T>(data: &T) -> error::Result<Vec<u8>>
     let data_hash = DataHash::new(bytes);
     let bytes = bincode::serialize(&data_hash)?;
 
-    Ok(bytes)
+    // gzip
+    let mut e = GzEncoder::new(Vec::new(), Compression::default());
+    e.write_all(&bytes)?;
+    let data = e.finish()?;
+
+    Ok(data)
 }
 
 /// convert bytes into T
 pub fn from_slice<T>(slice: &[u8]) -> error::Result<T>
     where T: for <'de> Deserialize<'de>
 {
+    // gzip
+    let mut d = GzDecoder::new(slice);
+    let mut data = Vec::new();
+    d.read_to_end(&mut data)?;
+
     // deserialize from bytes to DataHash, and do validate
-    let data_hash: DataHash = bincode::deserialize(slice)?;
+    let data_hash: DataHash = bincode::deserialize(&data)?;
     data_hash.validate()?;
 
     // convert back to given data
