@@ -1,6 +1,6 @@
 [package]
 name = "serde_tran"
-version = "0.2.0"
+version = "1.0.0"
 edition = "2021"
 authors = ["caojen <netid.caojen@gmail.com>"]
 description = "helper to serde your data into encoded bytes"

@@ -1044,7 +1044,7 @@ dependencies = [
 
 [[package]]
 name = "serde_tran"
-version = "0.2.0"
+version = "1.0.0"
 dependencies = [
  "actix-web",
  "anyhow",
