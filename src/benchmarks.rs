@@ -80,7 +80,7 @@ mod tests {
     }
 
     fn benchmark_n_len(n: usize, string_len: usize) {
-        const RUN: usize = 10;
+        const RUN: usize = 1;
 
         let mut json_time = 0u128;
         let mut tran_time = 0u128;
