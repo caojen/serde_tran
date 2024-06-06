@@ -13,8 +13,8 @@ mod tests {
         pub e1: Vec<u8>,
         pub e2: String,
         pub e3: Vec<u128>,
-        pub long_key_1: String,
-        pub long_key_2: String,
+        pub long_key_11111111111111111111111111: String,
+        pub long_key_2222222222222222222222222222222: String,
         pub long_key_333333333333: String,
         pub long_key_4x4x4x4x4x4x4x4x4x4x44x4x44x4x444x4x: String,
     }
@@ -45,8 +45,8 @@ mod tests {
                         e1: (0..string_len).into_iter().map(|_| rng.gen()).collect(),
                         e2: Self::random_string(&mut rng, string_len),
                         e3: (0..string_len).into_iter().map(|_| rng.gen()).collect(),
-                        long_key_1: Self::random_string(&mut rng, string_len),
-                        long_key_2: Self::random_string(&mut rng, string_len),
+                        long_key_11111111111111111111111111: Self::random_string(&mut rng, string_len),
+                        long_key_2222222222222222222222222222222: Self::random_string(&mut rng, string_len),
                         long_key_333333333333: Self::random_string(&mut rng, string_len),
                         long_key_4x4x4x4x4x4x4x4x4x4x44x4x44x4x444x4x: Self::random_string(&mut rng, string_len),
                     }
@@ -80,7 +80,7 @@ mod tests {
     }
 
     fn benchmark_n_len(n: usize, string_len: usize) {
-        const RUN: usize = 100;
+        const RUN: usize = 10;
 
         let mut json_time = 0u128;
         let mut tran_time = 0u128;
